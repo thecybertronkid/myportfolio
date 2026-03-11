@@ -71,16 +71,18 @@
     body {
       cursor: none;
     }
+    /* triangular cursor pointing down-right */
     #cursor {
       position: fixed;
       top: 0;
       left: 0;
-      width: 20px;
-      height: 20px;
-      border: 2px solid #3B82F6; /* brand accent color */
-      border-radius: 50%;
+      width: 0;
+      height: 0;
+      border-left: 12px solid transparent;
+      border-right: 12px solid transparent;
+      border-top: 20px solid #0F172A; /* navy color */
       pointer-events: none;
-      transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%) rotate(45deg);
       transition: transform 0.15s ease-out, opacity 0.3s;
       z-index: 9999;
       mix-blend-mode: difference;
@@ -89,8 +91,8 @@
       animation: click-wave 0.4s ease-out forwards;
     }
     @keyframes click-wave {
-      0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+      0% { transform: translate(-50%, -50%) rotate(45deg) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) rotate(45deg) scale(3); opacity: 0; }
     }
   </style>
 

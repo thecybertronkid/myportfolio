@@ -67,33 +67,7 @@
       position: relative;
     }
 
-    /* custom cursor */
-    body {
-      cursor: none;
-    }
-    /* triangular cursor pointing down-right */
-    #cursor {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 0;
-      height: 0;
-      border-left: 12px solid transparent;
-      border-right: 12px solid transparent;
-      border-top: 20px solid #0F172A; /* navy color */
-      pointer-events: none;
-      transform: translate(-50%, -50%) rotate(45deg);
-      transition: transform 0.15s ease-out, opacity 0.3s;
-      z-index: 9999;
-      mix-blend-mode: difference;
-    }
-    #cursor.click {
-      animation: click-wave 0.4s ease-out forwards;
-    }
-    @keyframes click-wave {
-      0% { transform: translate(-50%, -50%) rotate(45deg) scale(1); opacity: 1; }
-      100% { transform: translate(-50%, -50%) rotate(45deg) scale(3); opacity: 0; }
-    }
+
   </style>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
@@ -456,8 +430,7 @@ Science and Technology and also conducted various projects at JIST.</li>
     });
   </script>
 <!-- END: Navigation Script -->
-  <!-- custom cursor element -->
-  <div id="cursor"></div>
+  <!-- parallax scrolling script retained -->
   <script>
     // parallax scrolling for hero background
     const parallaxEl = document.querySelector('.parallax');
@@ -466,19 +439,6 @@ Science and Technology and also conducted various projects at JIST.</li>
       if (parallaxEl) {
         parallaxEl.style.transform = `translateY(${scrolled * 0.5}px)`;
       }
-    });
-
-    // custom cursor follow & click wave
-    const cursor = document.getElementById('cursor');
-    document.addEventListener('mousemove', e => {
-      cursor.style.left = e.clientX + 'px';
-      cursor.style.top = e.clientY + 'px';
-    });
-    document.addEventListener('mousedown', () => {
-      cursor.classList.add('click');
-    });
-    document.addEventListener('mouseup', () => {
-      cursor.classList.remove('click');
     });
   </script>
 </body></html>

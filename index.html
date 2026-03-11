@@ -31,7 +31,10 @@
     }
   </script>
 <!-- END: Custom Tailwind Configuration -->
-<style data-purpose="custom-animations">
+  <!-- AOS animation library (scroll-triggered effects) -->
+  <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+  <style data-purpose="custom-animations">
+    /* reusable animation helpers */
     .fade-in-up {
       animation: fadeInUp 0.8s ease-out forwards;
     }
@@ -39,6 +42,16 @@
       from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
+
+    /* breathing/pulse effect used for profile picture or important elements */
+    @keyframes breathe {
+      0%,100% { transform: scale(1); }
+      50% { transform: scale(1.03); }
+    }
+    .breathe {
+      animation: breathe 3s ease-in-out infinite;
+    }
+
     .hover-lift {
       transition: transform 0.2s ease, box-shadow 0.2s ease;
     }
@@ -46,7 +59,51 @@
       transform: translateY(-4px);
       box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
     }
+
+    /* parallax container should be will-change for smooth scroll */
+    .parallax {
+      will-change: transform;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* custom cursor */
+    body {
+      cursor: none;
+    }
+    #cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #3B82F6; /* brand accent color */
+      border-radius: 50%;
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: transform 0.15s ease-out, opacity 0.3s;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+    #cursor.click {
+      animation: click-wave 0.4s ease-out forwards;
+    }
+    @keyframes click-wave {
+      0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+      100% { transform: translate(-50%, -50%) scale(3); opacity: 0; }
+    }
   </style>
+
+  <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      AOS.init({
+        once: true,            // animation only once
+        duration: 800,         // global duration
+        offset: 120            // trigger offset from top
+      });
+    });
+  </script>
 </head>
 <body class="bg-brand-light text-brand-navy font-sans antialiased">
 <!-- BEGIN: Navigation -->
@@ -71,26 +128,26 @@
 <main>
 <!-- BEGIN: Hero Section -->
 <section class="relative bg-white pb-20 overflow-hidden" id="hero">
-<!-- Cover Image -->
-<div class="h-64 sm:h-80 lg:h-96 w-full relative overflow-hidden">
-<img alt="Sleek modern office space" class="w-full h-full object-cover" src="https://media.licdn.com/dms/image/v2/D5616AQEA08pJ9SdzOA/profile-displaybackgroundimage-shrink_350_1400/B56ZxymN3aKUAY-/0/1771449148095?e=1775088000&v=beta&t=v2iqcp12hDkyErCLLx2oUZ18SLkvriv4aM8dbUG1_E8"/>
-<div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/20"></div>
-</div>
+  <!-- Parallax cover background -->
+  <div class="parallax h-64 sm:h-80 lg:h-96 w-full relative overflow-hidden">
+    <img alt="Sleek modern office space" class="w-full h-full object-cover" src="https://media.licdn.com/dms/image/v2/D5616AQEA08pJ9SdzOA/profile-displaybackgroundimage-shrink_350_1400/B56ZxymN3aKUAY-/0/1771449148095?e=1775088000&v=beta&t=v2iqcp12hDkyErCLLx2oUZ18SLkvriv4aM8dbUG1_E8"/>
+    <div class="absolute inset-0 bg-gradient-to-b from-transparent to-white/20"></div>
+  </div>
 <!-- Profile Content -->
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 -mt-24 sm:-mt-32 relative z-10">
 <div class="flex flex-col items-center text-center sm:items-start sm:text-left">
 <!-- Profile Picture -->
-<div class="p-1 bg-white rounded-full shadow-xl">
+<div class="p-1 bg-white rounded-full shadow-xl breathe">
 <img alt="Ayan Kashyap" class="h-32 w-32 sm:h-48 sm:48 rounded-full border-4 border-white object-cover" src="https://media.licdn.com/dms/image/v2/D5603AQGhi7-GA5lbMg/profile-displayphoto-scale_400_400/B56ZxylppfHEAg-/0/1771449000891?e=1775088000&v=beta&t=07BlfWDI3fKOtsFTO9fye1j-7dDBNYp36Wc5HpIHCjs"/>
 </div>
-<div class="mt-6 fade-in-up">
-<h1 class="text-4xl sm:text-5xl font-extrabold text-brand-navy tracking-tight">Ayan Kashyap</h1>
-<p class="mt-2 text-xl sm:text-2xl font-medium text-brand-accent">Product & UX | Operations & Supply Chain</p>
-<p class="mt-4 max-w-2xl text-lg text-brand-slate leading-relaxed">
+<div class="mt-6" data-aos="fade-up">
+<h1 class="text-4xl sm:text-5xl font-extrabold text-brand-navy tracking-tight" data-aos="fade-up">Ayan Kashyap</h1>
+<p class="mt-2 text-xl sm:text-2xl font-medium text-brand-accent" data-aos="fade-up" data-aos-delay="150">Product & UX | Operations & Supply Chain</p>
+<p class="mt-4 max-w-2xl text-lg text-brand-slate leading-relaxed" data-aos="fade-up" data-aos-delay="300">
               Results-driven Product Operations professional experienced in product lifecycle management, supply chain coordination, and cross-functional execution. Skilled in building scalable processes, optimizing logistics and DTC fulfillment, and using data insights to enhance efficiency and customer experience. Experienced in stakeholder and vendor management, with a strong analytical foundation from a Chemistry background and a Post Graduate Diploma in Computer Applications.
             </p>
-<div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start">
-<a class="px-8 py-3 bg-brand-navy text-white font-semibold rounded-lg hover:bg-brand-accent transition-colors shadow-lg" href="mailto:kashyap.ayan.2003@gmail.com">Get In Touch</a>
+<div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start" data-aos="fade-up" data-aos-delay="450">
+<a class="px-8 py-3 bg-brand-navy text-white font-semibold rounded-lg hover:bg-brand-accent transition-colors shadow-lg breathe" href="mailto:kashyap.ayan.2003@gmail.com">Get In Touch</a>
 <div class="flex items-center space-x-4 px-4">
 <!-- Simple Social Placeholders -->
 </div>
@@ -103,50 +160,50 @@
 <!-- BEGIN: Skills Section -->
 <section class="py-20 bg-white" id="skills">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Skills & Expertise</h2>
+<h2 data-aos="fade-right" class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Skills & Expertise</h2>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
 <!-- Skill 1 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">End-to-End Product Operations</h3>
 <p class="text-brand-slate text-sm">Owned and optimized product operations across development, supply chain, logistics, inventory, and DTC fulfillment.</p>
 </div>
 <!-- Skill 2 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Supply Chain & Logistics Coordination</h3>
 <p class="text-brand-slate text-sm">Ensured efficient execution from factory to customer delivery with optimized supply chain management.</p>
 </div>
 <!-- Skill 3 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Process Optimization & SOP Development</h3>
 <p class="text-brand-slate text-sm">Built scalable operational processes and SOPs to support successful product launches and operations.</p>
 </div>
 <!-- Skill 4 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Product Management</h3>
 <p class="text-brand-slate text-sm">Managed vendor and go-to-market readiness while leading cross-functional collaboration across product, design, and marketing teams.</p>
 </div>
 <!-- Skill 5 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Digital & Performance Marketing</h3>
 <p class="text-brand-slate text-sm">Created promotional content highlighting sustainable practices and market opportunities to drive engagement.</p>
 </div>
 <!-- Skill 6 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Event Operations & Lead Generation</h3>
 <p class="text-brand-slate text-sm">Managed lead generation, database development, mass mailing campaigns, and follow-ups for event participation.</p>
 </div>
 <!-- Skill 7 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Event Planning & Coordination</h3>
 <p class="text-brand-slate text-sm">Contributed to event organization and supported summits aimed at improving industry sectors through stakeholder engagement.</p>
 </div>
 <!-- Skill 8 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">Field Research and Data Collection</h3>
 <p class="text-brand-slate text-sm">Conducted comprehensive surveys and research studies across multiple locations to gather actionable insights.</p>
 </div>
 <!-- Skill 9 -->
-<div class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
+<div data-aos="zoom-in" class="bg-slate-50 p-6 rounded-lg border border-slate-200 hover-lift" data-purpose="skill-card">
 <h3 class="text-lg font-bold text-brand-navy mb-2">MS Office & Business Applications</h3>
 <p class="text-brand-slate text-sm">Proficient in Microsoft Office suite and business applications with technical foundation from Computer Applications diploma.</p>
 </div>
@@ -157,10 +214,10 @@
 <!-- BEGIN: Experience Section -->
 <section class="py-20 bg-slate-50" id="experience">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-<h2 class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Professional Experience</h2>
+<h2 data-aos="fade-right" class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Professional Experience</h2>
 <div class="space-y-8">
 <!-- Exp Item 0 -->
-<div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
+<div data-aos="fade-up" class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
 <div class="flex-shrink-0">
 <img alt="Hangovers Apparel Logo" class="w-16 h-16 rounded-lg object-contain" src="https://hangoverlifestyles.com/cdn/shop/files/LOGO_2.png?height=100&v=1765212511"/>
 </div>
@@ -181,7 +238,7 @@ operational efficiency, cost control, and overall customer experience.</li>
 </div>
 </div>
 <!-- Exp Item 1 -->
-<div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
+<div data-aos="fade-up" data-aos-delay="150" class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
 <div class="flex-shrink-0">
 <img alt="Nurture & Foster Logo" class="w-16 h-16 rounded-lg object-contain" src="https://www.nurturefoster.com/wp-content/uploads/2024/10/Asset-1@300x-1024x358.png"/>
 </div>
@@ -397,4 +454,29 @@ Science and Technology and also conducted various projects at JIST.</li>
     });
   </script>
 <!-- END: Navigation Script -->
+  <!-- custom cursor element -->
+  <div id="cursor"></div>
+  <script>
+    // parallax scrolling for hero background
+    const parallaxEl = document.querySelector('.parallax');
+    window.addEventListener('scroll', () => {
+      const scrolled = window.pageYOffset;
+      if (parallaxEl) {
+        parallaxEl.style.transform = `translateY(${scrolled * 0.5}px)`;
+      }
+    });
+
+    // custom cursor follow & click wave
+    const cursor = document.getElementById('cursor');
+    document.addEventListener('mousemove', e => {
+      cursor.style.left = e.clientX + 'px';
+      cursor.style.top = e.clientY + 'px';
+    });
+    document.addEventListener('mousedown', () => {
+      cursor.classList.add('click');
+    });
+    document.addEventListener('mouseup', () => {
+      cursor.classList.remove('click');
+    });
+  </script>
 </body></html>

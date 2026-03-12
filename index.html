@@ -192,13 +192,13 @@
         numbersDiv.innerHTML = html;
       }
 
-      // render bar chart
-      const barCtx = document.getElementById('tenureBar')?.getContext('2d');
-      if (barCtx) {
-        new Chart(barCtx, {
-          type: 'bar',
-          data: { labels, datasets: [{ label: 'Tenure (months)', data: months, backgroundColor: '#3B82F6' }] },
-          options: { scales: { y: { beginAtZero: true } } }
+      // render pie chart
+      const pieCtx = document.getElementById('tenurePie')?.getContext('2d');
+      if (pieCtx) {
+        new Chart(pieCtx, {
+          type: 'pie',
+          data: { labels, datasets: [{ data: months, backgroundColor: ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#C9CBCF'] }] },
+          options: { plugins: { legend: { position: 'bottom' } } }
         });
       }
     });
@@ -471,10 +471,10 @@ Science and Technology and also conducted various projects at JIST.</li>
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
     <h2 class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Experience Tenure</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- numeric values list replaces pie chart -->
+      <!-- numeric values list alongside pie chart -->
       <div id="tenureNumbers" class="text-brand-navy"></div>
       <div>
-        <canvas id="tenureBar"></canvas>
+        <canvas id="tenurePie"></canvas>
       </div>
     </div>
   </div>

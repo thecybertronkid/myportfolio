@@ -147,62 +147,7 @@
       }
     });
   </script>
-  <!-- tenure charts script (dynamic) -->
-  <script>
-    document.addEventListener('DOMContentLoaded', function() {
-      // helper to map month names to numbers
-      const monthMap = {
-        January:1, February:2, March:3, April:4, May:5, June:6,
-        July:7, August:8, September:9, October:10, November:11, December:12
-      };
 
-      const labels = [];
-      const months = [];
-
-      document.querySelectorAll('[data-purpose="experience-card"]').forEach(card => {
-        const dateSpan = card.querySelector('span.text-brand-accent');
-        const companyEl = card.querySelector('p.text-lg.font-semibold');
-        if (!dateSpan || !companyEl) return;
-        const text = dateSpan.textContent.trim();
-        // expected format "Month, YYYY — Month, YYYY"
-        const parts = text.split('—').map(s=>s.trim());
-        if (parts.length !== 2) return;
-        function parse(str) {
-          const [m,y] = str.split(',').map(s=>s.trim());
-          return {month: monthMap[m]||0, year: parseInt(y,10)};
-        }
-        const start = parse(parts[0]);
-        const end = parse(parts[1]);
-        if (start.month && end.month && start.year && end.year) {
-          // include both the starting and ending month in the count
-          const diff = (end.year - start.year) * 12 + (end.month - start.month) + 1;
-          labels.push(companyEl.textContent.trim());
-          months.push(diff);
-        }
-      });
-
-      // populate numeric values list
-      const numbersDiv = document.getElementById('tenureNumbers');
-      if (numbersDiv && labels.length) {
-        let html = '<ul class="list-disc list-inside">';
-        labels.forEach((lbl,i) => {
-          html += `<li>${lbl}: ${months[i]} month${months[i] === 1 ? '' : 's'}</li>`;
-        });
-        html += '</ul>';
-        numbersDiv.innerHTML = html;
-      }
-
-      // render pie chart
-      const pieCtx = document.getElementById('tenurePie')?.getContext('2d');
-      if (pieCtx) {
-        new Chart(pieCtx, {
-          type: 'pie',
-          data: { labels, datasets: [{ data: months, backgroundColor: ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#C9CBCF'] }] },
-          options: { plugins: { legend: { position: 'bottom' } } }
-        });
-      }
-    });
-  </script>
 </head>
 <body class="bg-brand-light text-brand-navy font-sans antialiased">
 <!-- BEGIN: Navigation -->
@@ -329,6 +274,21 @@
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 <h2 data-aos="fade-right" class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Professional Experience</h2>
 <div class="space-y-8">
+  <!-- Exp Item 1 -->
+<div data-aos="fade-up" data-aos-delay="150" class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
+<div class="flex-shrink-0">
+<img alt="Nurture & Foster Logo" class="w-16 h-16 rounded-lg object-contain" src="https://upload.wikimedia.org/wikipedia/en/f/f4/FICCI_logo.svg"/>
+</div>
+<div class="flex-grow">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+<h3 class="text-xl font-bold text-brand-navy">Project Intern</h3>
+<span class="text-brand-accent font-medium mt-1 sm:mt-0">February, 2026 — March, 2026</span>
+</div>
+<p class="text-lg font-semibold text-brand-slate mt-1">Federation of Indian Chambers of Commerce and Industry</p>
+<ul class="mt-4 space-y-2 text-brand-slate list-disc list-inside">
+</ul>
+</div>
+</div>
 <!-- Exp Item 0 -->
 <div data-aos="fade-up" class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
 <div class="flex-shrink-0">
@@ -466,20 +426,7 @@ Science and Technology and also conducted various projects at JIST.</li>
 </section>
 <!-- END: Experience Section -->
 
-<!-- BEGIN: Tenure Charts Section -->
-<section class="py-20 bg-white" id="experienceCharts">
-  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <h2 class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Experience Tenure</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
-      <!-- numeric values list alongside pie chart -->
-      <div id="tenureNumbers" class="text-brand-navy"></div>
-      <div>
-        <canvas id="tenurePie"></canvas>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- END: Tenure Charts Section -->
+
 <!-- BEGIN: Projects Section -->
 <section class="py-20 bg-white" id="projects">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -84,6 +84,8 @@
   </style>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+  <!-- Chart.js for tenure visualization -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       AOS.init({
@@ -135,7 +137,44 @@
       }
       if (whatsappBtn) {
         whatsappBtn.addEventListener('click', () => {
-          window.open('https://wa.me/916000310014', '_blank');
+          const password = prompt('Enter password to open WhatsApp:');
+          if (password === 'akport123') {
+            window.open('https://wa.me/916000310014', '_blank');
+          } else {
+            alert('Incorrect password');
+          }
+        });
+      }
+    });
+  </script>
+  <!-- tenure charts script -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const labels = [
+        'Hangovers Apparel',
+        'Nurture & Foster',
+        'The Lush Minds',
+        'FICCI',
+        'NSS, JIST',
+        'JIST',
+        'BVFCL'
+      ];
+      const months = [5,2,2,2,25,24,2];
+
+      const pieCtx = document.getElementById('tenurePie')?.getContext('2d');
+      if (pieCtx) {
+        new Chart(pieCtx, {
+          type: 'pie',
+          data: { labels, datasets: [{ data: months, backgroundColor: ['#FF6384','#36A2EB','#FFCE56','#4BC0C0','#9966FF','#FF9F40','#C9CBCF'] }] },
+          options: { plugins: { legend: { position: 'bottom' } } }
+        });
+      }
+      const barCtx = document.getElementById('tenureBar')?.getContext('2d');
+      if (barCtx) {
+        new Chart(barCtx, {
+          type: 'bar',
+          data: { labels, datasets: [{ label: 'Tenure (months)', data: months, backgroundColor: '#3B82F6' }] },
+          options: { scales: { y: { beginAtZero: true } } }
         });
       }
     });
@@ -402,6 +441,22 @@ Science and Technology and also conducted various projects at JIST.</li>
 </div>
 </section>
 <!-- END: Experience Section -->
+
+<!-- BEGIN: Tenure Charts Section -->
+<section class="py-20 bg-white" id="experienceCharts">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-3xl font-bold text-brand-navy border-l-4 border-brand-accent pl-4 mb-12">Experience Tenure</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+      <div>
+        <canvas id="tenurePie"></canvas>
+      </div>
+      <div>
+        <canvas id="tenureBar"></canvas>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- END: Tenure Charts Section -->
 <!-- BEGIN: Projects Section -->
 <section class="py-20 bg-white" id="projects">
 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

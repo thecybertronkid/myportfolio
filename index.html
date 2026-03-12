@@ -68,6 +68,25 @@
     }
 
 
+    /* hover color change for skills & experience cards */
+    [data-purpose="skill-card"],
+    [data-purpose="experience-card"] {
+      transition: background-color 0.2s, color 0.2s;
+    }
+    [data-purpose="skill-card"]:hover,
+    [data-purpose="experience-card"]:hover {
+      background-color: #0F172A;
+      color: #fff;
+    }
+    [data-purpose="skill-card"]:hover h3,
+    [data-purpose="skill-card"]:hover p,
+    [data-purpose="experience-card"]:hover h3,
+    [data-purpose="experience-card"]:hover span,
+    [data-purpose="experience-card"]:hover p,
+    [data-purpose="experience-card"]:hover li {
+      color: inherit;
+    }
+
   </style>
 
   <script src="https://unpkg.com/aos@next/dist/aos.js"></script>

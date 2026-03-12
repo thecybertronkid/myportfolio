@@ -68,22 +68,16 @@
     }
 
 
-    /* hover color change for skills & experience cards */
-    [data-purpose="skill-card"],
-    [data-purpose="experience-card"] {
+    /* hover color change for skills only (experience section reverted) */
+    [data-purpose="skill-card"] {
       transition: background-color 0.2s, color 0.2s;
     }
-    [data-purpose="skill-card"]:hover,
-    [data-purpose="experience-card"]:hover {
+    [data-purpose="skill-card"]:hover {
       background-color: #0F172A;
       color: #fff;
     }
     [data-purpose="skill-card"]:hover h3,
-    [data-purpose="skill-card"]:hover p,
-    [data-purpose="experience-card"]:hover h3,
-    [data-purpose="experience-card"]:hover span,
-    [data-purpose="experience-card"]:hover p,
-    [data-purpose="experience-card"]:hover li {
+    [data-purpose="skill-card"]:hover p {
       color: inherit;
     }
 

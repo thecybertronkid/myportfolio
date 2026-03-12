@@ -80,6 +80,53 @@
       });
     });
   </script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const contactBtn = document.getElementById('contactBtn');
+      const contactModal = document.getElementById('contactModal');
+      const modalContent = document.getElementById('modalContent');
+      const closeModal = document.getElementById('closeModal');
+      const emailBtn = document.getElementById('emailBtn');
+      const whatsappBtn = document.getElementById('whatsappBtn');
+
+      function showModal() {
+        contactModal.classList.remove('hidden');
+        // trigger animation
+        requestAnimationFrame(() => {
+          modalContent.classList.remove('opacity-0', 'scale-95');
+          modalContent.classList.add('opacity-100', 'scale-100');
+        });
+      }
+      function hideModal() {
+        modalContent.classList.remove('opacity-100', 'scale-100');
+        modalContent.classList.add('opacity-0', 'scale-95');
+        // wait for transition before hiding backdrop
+        setTimeout(() => {
+          contactModal.classList.add('hidden');
+        }, 300);
+      }
+
+      if (contactBtn && contactModal && closeModal && modalContent) {
+        contactBtn.addEventListener('click', showModal);
+        closeModal.addEventListener('click', hideModal);
+        contactModal.addEventListener('click', function(e) {
+          if (e.target === contactModal) {
+            hideModal();
+          }
+        });
+      }
+      if (emailBtn) {
+        emailBtn.addEventListener('click', () => {
+          window.location.href = 'mailto:kashyap.ayan.2003@gmail.com';
+        });
+      }
+      if (whatsappBtn) {
+        whatsappBtn.addEventListener('click', () => {
+          window.open('https://wa.me/916000310014', '_blank');
+        });
+      }
+    });
+  </script>
 </head>
 <body class="bg-brand-light text-brand-navy font-sans antialiased">
 <!-- BEGIN: Navigation -->
@@ -122,11 +169,25 @@
 <p class="mt-4 max-w-2xl text-lg text-brand-slate leading-relaxed" data-aos="fade-up" data-aos-delay="300">
               Results-driven Product Operations professional experienced in product lifecycle management, supply chain coordination, and cross-functional execution. Skilled in building scalable processes, optimizing logistics and DTC fulfillment, and using data insights to enhance efficiency and customer experience. Experienced in stakeholder and vendor management, with a strong analytical foundation from a Chemistry background and a Post Graduate Diploma in Computer Applications.
             </p>
+            <p class="mt-2 text-sm text-brand-slate" data-aos="fade-up" data-aos-delay="450">
+              DOB: 2nd February, 2003 &bull; Gender: Male &bull; Total Professional experience: 11&nbsp;months
+            </p>
 <div class="mt-8 flex flex-wrap gap-4 justify-center sm:justify-start" data-aos="fade-up" data-aos-delay="450">
-<a class="px-8 py-3 bg-brand-navy text-white font-semibold rounded-lg hover:bg-brand-accent transition-colors shadow-lg breathe" href="mailto:kashyap.ayan.2003@gmail.com">Get In Touch</a>
+<button id="contactBtn" class="px-8 py-3 bg-brand-navy text-white font-semibold rounded-lg hover:bg-brand-accent transition-colors shadow-lg breathe">Get In Touch</button>
 <div class="flex items-center space-x-4 px-4">
 <!-- Simple Social Placeholders -->
 </div>
+</div>
+<!-- Contact modal -->
+<div id="contactModal" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 hidden transition-opacity duration-300">
+  <div id="modalContent" class="bg-white rounded-lg p-6 max-w-sm w-full transform transition-all duration-300 opacity-0 scale-95">
+    <h3 class="text-xl font-bold mb-4">Contact Me</h3>
+    <div class="flex flex-col gap-4 mb-4">
+      <button id="emailBtn" class="w-full px-4 py-2 bg-brand-navy text-white rounded hover:bg-brand-accent transition-colors">Email Me</button>
+      <button id="whatsappBtn" class="w-full px-4 py-2 bg-brand-navy text-white rounded hover:bg-brand-accent transition-colors">WhatsApp</button>
+    </div>
+    <button id="closeModal" class="mt-2 px-4 py-2 bg-brand-navy text-white rounded hover:bg-brand-accent">Close</button>
+  </div>
 </div>
 </div>
 </div>
@@ -233,6 +294,25 @@ sector, by assisting with outreach to local artisans and entrepreneurs.</li>
 </div>
 </div>
 <!-- Exp Item 2 -->
+<div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
+<div class="flex-shrink-0">
+<img alt="The Lush Minds Logo" class="w-16 h-16 rounded-lg object-contain" src="https://thelushminds.in/static/media/TLM%20Logo.4543abce9caf41cc32c8.png"/>
+</div>
+<div class="flex-grow">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+<h3 class="text-xl font-bold text-brand-navy">Creatives & Marketing Leads</h3>
+<span class="text-brand-accent font-medium mt-1 sm:mt-0">June, 2025 — July, 2025</span>
+</div>
+<p class="text-lg font-semibold text-brand-slate mt-1">The Lush Minds</p>
+<ul class="mt-4 space-y-2 text-brand-slate list-disc list-inside">
+<li>Designed digital creatives and branding assets to establish a consistent and engaging visual identity.</li>
+<li>Led the overall marketing strategy and brand direction for the community.</li>
+<li>Managed and handled the community’s social media platforms in the initial phase, supporting audience growth and brand visibility.</li>
+<li>Refined and elevated the brand’s creative standards, ensuring consistency across marketing campaigns, social media, and digital platforms.</li>
+</ul>
+</div>
+</div>
+<!-- Exp Item 2 -->
  <div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
 <div class="flex-shrink-0">
 <img alt="FICCI Logo" class="w-16 h-16 rounded-lg object-contain" src="https://upload.wikimedia.org/wikipedia/en/f/f4/FICCI_logo.svg"/>
@@ -290,6 +370,21 @@ Science and Technology and also conducted various projects at JIST.</li>
 </ul>
 </div>
 </div>
+<!-- Exp Item 2 -->
+<div class="bg-white p-8 rounded-xl shadow-sm border border-slate-100 flex flex-col md:flex-row gap-6 hover-lift" data-purpose="experience-card">
+<div class="flex-shrink-0">
+<img alt="The Lush Minds Logo" class="w-16 h-16 rounded-lg object-contain" src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRwRO9DLsLqkEOzvqK-JemoFR3EYi50AXqz6g&s"/>
+</div>
+<div class="flex-grow">
+<div class="flex flex-col sm:flex-row sm:justify-between sm:items-baseline">
+<h3 class="text-xl font-bold text-brand-navy">Field Intern</h3>
+<span class="text-brand-accent font-medium mt-1 sm:mt-0">June, 2023 — July, 2023</span>
+</div>
+<p class="text-lg font-semibold text-brand-slate mt-1">Brahmaputra Valley Fertilizer Corporation Limited</p>
+<ul class="mt-4 space-y-2 text-brand-slate list-disc list-inside">
+<li>Successfully completed a Summer Training Internship on Urea Production at Brahmaputra Valley Fertilizer Corporation Limited (BVFCL), Namrup, under the guidance of Mr. Santanu Hazarika, Officer (Training).</li>
+<li>During this internship, I gained practical exposure to the end-to-end process of urea production, covering key aspects of ammonia synthesis, process plant operations, quality control, and safety standards in a large-scale fertilizer manufacturing environment. This experience enhanced my technical knowledge, problem-solving skills, and understanding of industrial best practices in the chemical fertilizer sector.</li>
+</ul>
 </div>
 </div>
 </section>
